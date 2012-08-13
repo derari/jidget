@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <styles>
+            <style ref="..*/style.css"/>
+        </styles>
+    </head>
+    <body>
+        <j:vBox minHeight="500">
+            <j:text id="txt">
+                <text>Hello Style</text>
+            </j:text>
+        </j:vBox>
+    </body>
+</j:jidget>

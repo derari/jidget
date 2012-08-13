@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <beans>
+            <!--<j:bean j:class="net.jidget.beans.TimeBean" j:id="time" />-->
+            <j:time/>
+            <j:date/>
+            <j:format j:id="fmt">
+                <t j:bind="time.value"/>
+                <d j:bind="date.value"/>
+                <y j:bind="date.year"/>
+                <time format="%tH:%1$tM:%1$tS" args="t"/>
+                <date format="%tb %1$te, %Ir" args="d,y"/>
+                <timedate format="%s%n%s" args="time,date"/>
+            </j:format>
+            <j:eval>
+                <m type="double" j:bind="time.minute"/>
+                <h type="double" j:bind="time.hour"/>
+                <angleMinute value="6*m"/>
+                <angleHour value="30*h"/>
+            </j:eval>
+        </beans>
+    </head>
+    <body>
+        <j:vBox>
+            <j:group>
+                <j:circle radius="50" x="50" y="50">
+                    <fill value="fff0"/>
+                    <stroke value="fff"/>
+                    <strokeWidth>3</strokeWidth>
+                </j:circle>
+                <j:line startX="50" startY="50" endX="50" endY="5">
+                    <stroke value="fff"/>
+                    <strokeWidth>2</strokeWidth>
+                    <transforms>
+                        <j:rotate>
+                            <pivotX>50</pivotX>
+                            <pivotY>50</pivotY>
+                            <angle j:bind="eval.angleMinute"/>
+                        </j:rotate>
+                    </transforms>
+                </j:line>
+                <j:line startX="50" startY="50" endX="50" endY="20">
+                    <stroke value="fff"/>
+                    <strokeWidth>4</strokeWidth>
+                    <transforms>
+                        <j:rotate>
+                            <pivotX>50</pivotX>
+                            <pivotY>50</pivotY>
+                            <angle j:bind="eval.angleHour"/>
+                        </j:rotate>
+                    </transforms>
+                </j:line>
+            </j:group>
+            <j:text j:id="text">
+                <font family="Arial" weight="bold" size="20"/>
+                <opacity>0.5</opacity>
+                <text j:bind="fmt.timedate"/>
+                <fill value="f00"/>
+            </j:text>
+        </j:vBox>
+    </body>
+</j:jidget>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>jidget-frame</artifactId>
+        <groupId>net.jidget</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>net.jidget</groupId>
+    <artifactId>jidget-frame-api</artifactId>
+    <name>Jidget Frame API</name>
+    <version>0.1-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>javafx</groupId>    
+            <artifactId>javafx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.cthul</groupId>
+            <artifactId>cthul-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.cthul</groupId>
+            <artifactId>cthul-matcher</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

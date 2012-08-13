@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <beans>
+            <j:bean j:class="net.jidget.beans.TimerBean" j:id="timer">
+                <enabled>true</enabled>
+            </j:bean>
+        </beans>
+    </head>
+    <body>
+        <j:vBox>
+            <j:text j:id="text">
+                <font family="Arial" weight="BOLD" size="400"/>
+                <opacity>0.5</opacity>
+                <text j:bind="timer.value"/>
+                <fill value="f00"/>
+            </j:text>
+        </j:vBox>
+    </body>
+</j:jidget>

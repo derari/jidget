@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <beans>
+            <j:loader uri="../../example-data/weather.xml" update="30m"/>
+            <j:regex>
+                <string j:bind="loader.string"/>
+                <match j:id="mToday">
+                    <pattern><![CDATA[ <today>\s*<temp>(\d+) ]]></pattern>
+                </match>
+                <match j:id="mDay1">
+                    <pattern><![CDATA[ <day1>\s*<temp>(\d+) ]]></pattern>
+                </match>
+                <match j:id="mDay2">
+                    <pattern><![CDATA[ <day2>\s*<temp>(\d+) ]]></pattern>
+                </match>
+            </j:regex>
+        </beans>
+    </head>
+    <body>
+        <j:vBox minHeight="500">
+            <j:text j:id="text">
+                <font family="Arial" weight="bold" size="20"/>
+                <text j:bind="mToday.group1"/>
+                <fill value="f00"/>
+            </j:text>
+            <j:text j:id="text">
+                <font family="Arial" weight="bold" size="20"/>
+                <text j:bind="mDay1.group1"/>
+                <fill value="f00"/>
+            </j:text>
+            <j:text j:id="text">
+                <font family="Arial" weight="bold" size="20"/>
+                <text j:bind="mDay2.group1"/>
+                <fill value="f00"/>
+            </j:text>
+        </j:vBox>
+    </body>
+</j:jidget>

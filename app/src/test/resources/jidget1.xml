@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'
+        xmlns:t="http://jidget.net/plugins/test/0.1/test"
+        xmlns:fx="http://jidget.net/0.1/jfx"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:schemaLocation=
+            'http://jidget.net/0.1/jidget ../../../src/main/xml/net/jidget/0.1/jidget.xsd
+             http://jidget.net/plugins/test/0.1/test Plugin.xsd'
+        >
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <beans>
+            <j:bean j:class="bar" baz="baz">
+                <foo>1</foo>
+            </j:bean>
+            <bar baz="baz">
+                <foo>1</foo>
+            </bar>
+            <t:testBean j:id="aTest" baz="baz">
+                <bar>bar</bar>
+                <foo>foo</foo>
+            </t:testBean>
+            <fx:bean j:class="bar" fx:fx-id="baz" baz="baz">
+                <foo>1</foo>
+            </fx:bean>
+        </beans>
+    </head>
+    <body></body>
+
+</j:jidget>

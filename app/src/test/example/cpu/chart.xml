@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <beans>
+            <j:cpu update="2s" />
+        </beans>
+    </head>
+    <body>
+        <j:vBox minWidth="300" minHeight="100">
+            <j:lineChart legendVisible="false">
+                <XAxis>
+                    <j:numberAxis animated="false" tickMarkVisible="false" minorTickVisible="false"> 
+                    </j:numberAxis>
+                </XAxis>
+                <YAxis>
+                    <j:numberAxis lowerBound="0" upperBound="1" autoRanging="false"/>
+                </YAxis>
+                <series>
+                    <data j:bind="cpu.data"/>
+                </series>
+            </j:lineChart>
+        </j:vBox>
+    </body>
+</j:jidget>

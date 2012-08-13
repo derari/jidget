@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <beans>
+            <j:files update="10m">
+                <folder path="E:\Bilder\Ella\2012-05" pattern=".*jpg"/>
+            </j:files>
+            <j:random update="1s">
+                <input j:bind="files.list"/>
+            </j:random>            
+            <j:loader>
+                <uri j:bind="random.current"/>
+            </j:loader>
+        </beans>
+    </head>
+    <body>
+        <j:vBox minHeight="300" minWidth="300">
+            <j:imageView>
+                <image j:bind="loader.image"/>
+                <fitWidth>300</fitWidth>
+                <fitHeight>300</fitHeight>
+                <smooth>true</smooth>
+                <preserveRatio>true</preserveRatio>
+            </j:imageView>
+        </j:vBox>
+    </body>
+</j:jidget>

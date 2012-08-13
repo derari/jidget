@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <properties>
+            <txt.size>20</txt.size>
+            <j:properties ref="values.properties"/>
+            <j:properties ref="..*/def.properties"/>
+            <test.text1>Hello World!</test.text1>
+            <test.text6>KTHXBYE</test.text6>
+        </properties>
+        <beans>
+        </beans>
+    </head>
+    <body>
+        <j:vBox minHeight="500">
+            <j:text>
+                <font family="Arial" weight="bold" size="$txt.size"/>
+                <text>$test.text1</text>
+                <fill value="f00"/>
+            </j:text>
+            <j:text>
+                <font family="Arial" weight="bold" size="$txt.size"/>
+                <text>$test.text2</text>
+                <fill value="f00"/>
+            </j:text>
+            <j:text>
+                <font family="Arial" weight="bold" size="$txt.size"/>
+                <text>$test.text3</text>
+                <fill value="f00"/>
+            </j:text>
+            <j:text>
+                <font family="Arial" weight="bold" size="$txt.size"/>
+                <text>$test.text4</text>
+                <fill value="f00"/>
+            </j:text>
+            <j:text>
+                <font family="Arial" weight="bold" size="$txt.size"/>
+                <text>$test.text5</text>
+                <fill value="f00"/>
+            </j:text>
+            <j:text>
+                <font family="Arial" weight="bold" size="$txt.size"/>
+                <text>$test.text6</text>
+                <fill value="f00"/>
+            </j:text>
+        </j:vBox>
+    </body>
+</j:jidget>

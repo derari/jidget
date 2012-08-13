@@ -1,0 +1,9 @@
+.text { 
+    -fx-font-size: 20pt;
+    -fx-font-smoothing-type: lcd; 
+} 
+
+.root {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+}

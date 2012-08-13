@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <styles>
+            <style ref="clock.css"/>
+        </styles>
+        <beans>
+            <j:time/>
+            <j:eval>
+                <s type="double" j:bind="time.second"/>
+                <m type="double" j:bind="time.minute"/>
+                <h type="double" j:bind="time.hour"/>
+                <angleSecond value="6*s"/>
+                <angleMinute value="6*m"/>
+                <angleHour value="30*h"/>
+                
+                <faceX type="double" j:bind="face.centerX"/>
+                <faceY type="double" j:bind="face.centerY"/>
+                <brandW type="double" j:bind="brand.width"/>
+                <brandH type="double" j:bind="brand.height"/>
+                <brandX value="faceX - brandW/2"/>
+                <brandY value="faceY + 25"/>
+                
+            </j:eval>
+        </beans>
+    </head>
+    <body>
+        <j:vBox spacing="5">
+            <j:group/>
+            <j:hBox spacing="5">
+                <j:group/>
+                <j:group>
+                    <j:circle id="face" radius="50" centerX="50" centerY="50" />
+                    <j:label id="brand" text="Quarz">
+                        <layoutX j:bind="eval.brandX"/>
+                        <layoutY j:bind="eval.brandY"/>
+                    </j:label>
+                    <j:line id="secondHand" startX="50" startY="50" endX="50" endY="5">
+                        <transforms>
+                            <j:rotate pivotX="50" pivotY="50">
+                                <angle j:bind="eval.angleSecond"/>
+                            </j:rotate>
+                        </transforms>
+                    </j:line>
+                    <j:line id="minuteHand" startX="50" startY="50" endX="50" endY="10">
+                        <transforms>
+                            <j:rotate pivotX="50" pivotY="50">
+                                <angle j:bind="eval.angleMinute"/>
+                            </j:rotate>
+                        </transforms>
+                    </j:line>
+                    <j:line id="hourHand" startX="50" startY="50" endX="50" endY="20">
+                        <transforms>
+                            <j:rotate pivotX="50" pivotY="50">
+                                <angle j:bind="eval.angleHour"/>
+                            </j:rotate>
+                        </transforms>
+                    </j:line>
+                </j:group>
+            </j:hBox>
+        </j:vBox>
+    </body>
+</j:jidget>

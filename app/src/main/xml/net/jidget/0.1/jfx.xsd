@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://jidget.net/0.1/jfx"
+        xmlns:j="http://jidget.net/0.1/jidget"
+        xmlns:fx="http://jidget.net/0.1/jfx"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        elementFormDefault="unqualified" 
+        attributeFormDefault="unqualified"
+        >
+    
+    <xs:import namespace="http://jidget.net/0.1/jidget" schemaLocation="jidget.xsd"/>
+    
+    <xs:attribute name="fx-id" type="xs:string"/>
+        
+    <xs:element name="bean" type="fx:Bean"/>
+    
+    <xs:complexType name="Bean">
+        <xs:annotation>
+            <xs:documentation>
+                <h2>Bean</h2>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="0">
+            <xs:any processContents="lax"/>
+        </xs:sequence>
+        <xs:attribute ref="j:id"/>
+        <xs:attribute ref="j:class" use="required"/>
+        <xs:attribute ref="fx:fx-id" use="required"/>
+        <xs:attribute name="baz" type="xs:string"/>
+    </xs:complexType>
+        
+</xs:schema>

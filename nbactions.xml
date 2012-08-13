@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-install-jfx</actionName>
+            <displayName>install-jfx</displayName>
+            <recursive>false</recursive>
+            <goals>
+                <goal>install</goal>
+                
+            </goals>
+            <properties>
+                <jfx-runtime>C:/Program Files/Oracle/JavaFX 2.1 SDK/rt</jfx-runtime>
+            </properties>
+            <activatedProfiles>
+                <activatedProfile>install-javafx</activatedProfile>
+            </activatedProfiles>
+        </action>
+        
+    </actions>

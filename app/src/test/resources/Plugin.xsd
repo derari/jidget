@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://jidget.net/plugins/test/0.1/test"
+        xmlns:t="http://jidget.net/plugins/test/0.1/test"
+        xmlns:j="http://jidget.net/0.1/jidget"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        elementFormDefault="unqualified" 
+        attributeFormDefault="unqualified"
+        >
+
+    <xs:import namespace="http://jidget.net/0.1/jidget" schemaLocation="../../main/xml/net/jidget/jidget.xsd"/>
+
+    <xs:element name="testBean" type="t:TestBean"/>
+    
+    <xs:complexType name="TestBean">
+        <xs:annotation>
+            <xs:documentation>
+                <h2>TestBean</h2>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="j:BeanBase">
+                <xs:all>
+                    <xs:element name="foo" type="xs:string"/>
+                    <xs:element name="bar" type="xs:string"/>
+                </xs:all>  
+                <xs:attribute name="baz" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>
