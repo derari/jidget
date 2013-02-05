@@ -36,17 +36,22 @@
         </dependency>
         <dependency>
             <groupId>org.cthul</groupId>
-            <artifactId>cthul-parser</artifactId>
-            <version>1.0</version>
+            <artifactId>cthul-parser-lib</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.cthul</groupId>
-            <artifactId>cthul-matcher</artifactId>
+            <artifactId>cthul-matchers</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

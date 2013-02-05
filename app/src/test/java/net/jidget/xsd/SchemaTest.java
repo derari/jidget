@@ -1,18 +1,5 @@
 package net.jidget.xsd;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import javax.xml.XMLConstants;
-import javax.xml.stream.*;
-import javax.xml.transform.stax.StAXResult;
-import javax.xml.transform.stax.StAXSource;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-import net.jidget.builder.JidgetSchemaResolver;
-import net.jidget.builder.UriFinder;
-import org.cthul.xml.schema.SchemaResolver;
-import org.cthul.xml.validation.ValidatingXMLInputFactory;
 import org.junit.Test;
 
 /**

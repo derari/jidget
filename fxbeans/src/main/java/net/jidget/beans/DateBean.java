@@ -1,6 +1,7 @@
 package net.jidget.beans;
 
 import java.util.Calendar;
+import java.util.Observable;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.*;
@@ -31,7 +32,7 @@ public class DateBean implements BeanWithUtils {
         day.bind(new CalendarFieldBinding(value, Calendar.DAY_OF_MONTH));
         month.bind(new CalendarFieldBinding(value, Calendar.MONTH));
         year.bind(new CalendarFieldBinding(value, Calendar.YEAR));
-
+        
         value.bind(new ObjectBinding<Calendar>() {
             {bind(update);}
             @Override

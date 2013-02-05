@@ -1,12 +1,8 @@
 package net.jidget;
 
-import java.io.File;
 import javafx.scene.Scene;
 import net.jidget.beans.BeanManager;
-import net.jidget.builder.JidgetSchemaResolver;
-import net.jidget.builder.StAXJidgetFactory;
 import net.jidget.frame.Frame;
-import org.cthul.xml.schema.SchemaResolver;
 
 /**
  *

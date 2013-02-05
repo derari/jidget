@@ -49,8 +49,7 @@ public class EvalBean {
     }
 
     private Property<?> createFunction(String name, String type, String value) {
-        EvalParser parser = EvalParser.create(this);
-        Eval<?> eval = parser.parse(value, type);
+        Eval<?> eval = new EvalParser(this).parse(value, type);
         final Property<?>  p;
         if (eval.getType() == String.class) {
             if (type != null && !type.equals("string")) {

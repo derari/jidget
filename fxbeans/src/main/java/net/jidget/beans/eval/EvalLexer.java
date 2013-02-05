@@ -1,13 +1,14 @@
 package net.jidget.beans.eval;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import net.jidget.beans.EvalBean;
-import org.cthul.parser.TokenBuilder;
-import org.cthul.parser.TokenFactory;
 import org.cthul.parser.annotation.Match;
 import org.cthul.parser.annotation.*;
+import org.cthul.parser.api.RuleKey;
 import org.cthul.parser.lexer.*;
+import org.cthul.parser.token.*;
 
 /**
  *
@@ -15,9 +16,8 @@ import org.cthul.parser.lexer.*;
  */
 public class EvalLexer {
     
-    private static final int P_LITERAL = 0x1000;
+    private static final int P_LITERAL = Priority.Default + 0x1000;
     
-    private final IdentifierTokenFactory identifierTF = new IdentifierTokenFactory();
     private final EvalBean bean;
 
     public EvalLexer(EvalBean bean) {
@@ -26,17 +26,16 @@ public class EvalLexer {
     
     @Priority(P_LITERAL)
     @Key
-    @Match({"\"(([^\"\\\\]|\\\")*)\"",
-            "'(([^'\\\\]|\\')*)'"})
+    @TokenMatch({"\"(([^\"\\\\]|\\\")*)\"",
+                 "'(([^'\\\\]|\\')*)'"})
     public void STRING(@Group(1) String s, TokenBuilder tb) {
         tb.setValue(s);
     }
     
     @Priority(P_LITERAL)
     @Key
-    @Match("[-+]?([0-9]*\\.)?[0-9]+([eE][-+]?[0-9]+)?")
-    @TokenClass(DoubleToken.class)
-    public void NUMBER() {}
+    @TokenMatch("[-+]?([0-9]*\\.)?[0-9]+([eE][-+]?[0-9]+)?")
+    public static final TokenFactory NUMBER = DoubleToken.FACTORY;
 //    
 //    @Priority(2)
 //    @Match("0x([0-9A-Fa-f]+)")
@@ -46,62 +45,27 @@ public class EvalLexer {
 
     @Priority(P_LITERAL)
     @Key
-    @Match("E|PI|NAN|INF")
-    public void DOUBLE_CONSTANT() {}
+    @TokenMatch("E|PI|NAN|INF")
+    public static final Void DOUBLE_CONSTANT = null;
     
-    @Key
-    @Match("[a-zA-Z_$][a-zA-Z_$0-9]*")
-    public TokenFactory<?,?> IDENTIFIER() {
-        return identifierTF;
+    @TokenMatch("[a-zA-Z_$][a-zA-Z_$0-9]*")
+    public void identifier(String value, TokenBuilder tb) {
+        Property<?> p = bean.property(value);
+        if (p instanceof DoubleProperty) {
+            tb.setKey("P_DOUBLE");
+        } else if (p instanceof StringProperty) {
+            tb.setKey("P_STRING");
+        } else {
+            tb.setKey("IDENTIFIER");
+        }
     }
     
-    @Match("[()*+-/,]")
-    public void operator() {}
+    @TokenMatch("[()*+-/,]")
+    public static final Void operator = null;
     
     @Key
-    @Match("[\\s]+")
+    @TokenMatch("[\\s]+")
     @Channel(Channel.Whitespace)
-    public void WS() {}
-
-    public class IdentifierTokenFactory extends AbstractTokenFactory<String, IdentifierToken> {
-
-        @Override
-        protected String parse(String value) {
-            return value;
-        }
-
-        @Override
-        protected IdentifierToken newToken(int id, String key, String value, int start, int end, int channel) {
-            return new IdentifierToken(id, key, value, start, end, channel, bean);
-        }
-        
-    }
-    
-    /**
-     * A token that is aware whether it references a property, and its type.
-     */
-    public static class IdentifierToken extends StringToken {
-
-        private final EvalBean bean;
-        
-        public IdentifierToken(int id, String key, String value, int start, int end, int channel, EvalBean bean) {
-            super(id, key, value, start, end, channel);
-            this.bean = bean;
-        }
-
-        @Override
-        public boolean match(String key) {
-            boolean b = super.match(key);
-            if (b) return true;
-            switch (key) {
-                case "P_DOUBLE":
-                    return bean.property(getValue()) instanceof DoubleProperty;
-                case "P_STRING":
-                    return bean.property(getValue()) instanceof StringProperty;
-            } 
-            return false;
-        }
-        
-    }
+    public static final Void WS = null;
     
 }

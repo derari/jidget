@@ -8,8 +8,8 @@
             </goals>
             <properties>
                 <exec.classpathScope>runtime</exec.classpathScope>
-                <exec.args>-Djava.library.path=target/bin;target/bin/hyperic-sigar-1.6.5/sigar-bin/lib -classpath %classpath net.jidget.App</exec.args>
-                <exec.executable>java</exec.executable>
+                
+                
             </properties>
         </action>
         <action>
@@ -19,10 +19,13 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
-                <exec.classpathScope>runtime</exec.classpathScope>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Djava.library.path=target/bin;target/bin/hyperic-sigar-1.6.5/sigar-bin/lib -classpath %classpath net.jidget.App</exec.args>
+                <project.exec.moreoptions1>-Xdebug</project.exec.moreoptions1>
+                <project.exec.moreoptions2>-Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}</project.exec.moreoptions2>
+                
+                
+                
                 <jpda.listen>true</jpda.listen>
-                <exec.executable>java</exec.executable>
+                
             </properties>
         </action>
         <action>

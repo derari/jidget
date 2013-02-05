@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import org.cthul.strings.Formatter;
+import org.cthul.strings.Strings;
 
 /**
  *
@@ -68,7 +69,7 @@ public class FormatterBean {
                     for (int i = 0; i < values.length; i++) {
                         values[i] = properties[i].getValue();
                     }
-                    return Formatter.Format(format, values);
+                    return Strings.format(format, values);
                 } catch (RuntimeException e) {
                     return e.getMessage();
                 }

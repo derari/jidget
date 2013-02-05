@@ -11,6 +11,10 @@
     <artifactId>jidget-app</artifactId>
     <name>Jidget App</name>
     <version>0.1-SNAPSHOT</version>
+    <properties>
+        <project.exec.moreoptions1>-Ddummy1=true</project.exec.moreoptions1>
+        <project.exec.moreoptions2>-Ddummy2=true</project.exec.moreoptions2>
+    </properties>
     <build>
         <resources>
             <resource>
@@ -21,6 +25,34 @@
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>java</executable>
+                            <classpathScope>runtime</classpathScope>
+                            <arguments>
+                                <argument>-Djava.library.path=target/bin;target/bin/hyperic-sigar-1.6.5/sigar-bin/lib</argument>
+                                <!--<argument>-Djavafx.verbose=true</argument>-->
+                                <!--<argument>-verbose:class</argument>-->
+                                <argument>-Djavafx.runtime.path=${java.home}</argument>
+                                <argument>-Djavafx.application.class=net.jidget.App</argument>
+                                <argument>${project.exec.moreoptions1}</argument>
+                                <argument>${project.exec.moreoptions2}</argument>
+                                <argument>-cp</argument>
+                                <classpath/>
+                                <argument>com.javafx.main.Main</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -108,7 +140,6 @@
         <dependency>
             <groupId>javafx</groupId>    
             <artifactId>javafx</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -136,7 +167,7 @@
         </dependency>
         <dependency>
             <groupId>org.cthul</groupId>
-            <artifactId>cthul-matcher</artifactId>
+            <artifactId>cthul-matchers</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

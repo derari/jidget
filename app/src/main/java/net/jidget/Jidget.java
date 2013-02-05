@@ -25,7 +25,7 @@ import org.cthul.log.CLoggerFactory;
  */
 public class Jidget {
     
-    static CLogger log = CLoggerFactory.getClasslogger();
+    static CLogger log = CLoggerFactory.getClassLogger();
     
     private final String id;
     private final String name;

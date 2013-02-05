@@ -26,7 +26,7 @@ public class FrameFactoryTest {
     @Test
     public void test_getInstance() {
         IFrameFactory factory = FrameFactory.getInstance();
-        assertThat(factory, is(instanceOf(FrameFactoryImpl.class)));
+        assertThat(factory, _isA(FrameFactoryImpl.class));
     }
     
     @Test

@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>javafx</groupId>
-        <artifactId>javafx-install</artifactId>
-        <version>1.0</version>
-    </parent>
     <groupId>net.jidget</groupId>
     <artifactId>jidget</artifactId>
     <packaging>pom</packaging>
@@ -22,7 +17,7 @@
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jfx-version>2.1</jfx-version>
+        <jfx-rt-jar>${java.home}/lib/jfxrt.jar</jfx-rt-jar>
     </properties>
     <build>
         <pluginManagement>
@@ -79,8 +74,9 @@
             <dependency>
                 <groupId>javafx</groupId>
                 <artifactId>javafx</artifactId>
-                <version>${jfx-version}</version>
-                <scope>provided</scope>
+                <version>2.2.5</version>
+                <scope>system</scope>
+                <systemPath>${jfx-rt-jar}</systemPath>
             </dependency>
             <dependency>
                 <groupId>org.cthul</groupId>
@@ -109,7 +105,7 @@
             </dependency>
             <dependency>
                 <groupId>org.cthul</groupId>
-                <artifactId>cthul-matcher</artifactId>
+                <artifactId>cthul-matchers</artifactId>
                 <version>1.0</version>
             </dependency>
         </dependencies>

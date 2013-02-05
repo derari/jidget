@@ -16,7 +16,7 @@ import org.cthul.log.CLoggerFactory;
  */
 public abstract class FrameFactory {
     
-    static final CLogger log = CLoggerFactory.getClasslogger();
+    static final CLogger log = CLoggerFactory.getClassLogger();
     
     public static Frame create(Scene scene) {
         return getInstance().create(scene);

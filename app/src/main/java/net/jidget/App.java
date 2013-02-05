@@ -13,12 +13,15 @@ import org.cthul.log.CLoggerFactory;
 
 public class App extends Application {
     
-    static final CLogger log = CLoggerFactory.getClasslogger();
-    
     //static NativeWidget w;
     
     public static void main(String[] args) throws Exception {
         if (args.length == 0) args = new String[]{"./src/test/example"};
+        
+        ClassLoader loader = App.class.getClassLoader();
+        System.out.println(loader.getResource("org/cthul/log/CLoggerFactory.class"));
+        
+        final CLogger log = CLoggerFactory.getClassLogger();
         log.info("java.library.path=%s", System.getProperty("java.library.path"));
         Application.launch(App.class, args);
         log.info("End");
@@ -32,7 +35,8 @@ public class App extends Application {
 
     @Override
     public void init() throws Exception {
-        List<String> args = getParameters().getRaw();
+        List<String> args = new ArrayList<>(getParameters().getRaw());
+        if (args.isEmpty()) args.add("./src/test/example");
         
         root = new File(args.get(0));
         config = args.size() > 1 ? new File(args.get(1)) : new File(root, "config.dat");
@@ -70,6 +74,7 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         j.close();
+        final CLogger log = CLoggerFactory.getClassLogger();
         log.warn("stopped");
     }
 

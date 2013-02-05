@@ -14,7 +14,7 @@ public class Config implements Serializable {
     
     private static final long serialVersionUID = 8002077539859903415L;
     
-    static final CLogger log = CLoggerFactory.getClasslogger();
+    static final CLogger log = CLoggerFactory.getClassLogger();
     
     public static Config getOrCreate(File file) {
         try {

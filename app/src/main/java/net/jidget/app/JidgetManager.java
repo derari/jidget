@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
  */
 public class JidgetManager {
 
-    static CLogger log = CLoggerFactory.getClasslogger();
+    static CLogger log = CLoggerFactory.getClassLogger();
     
     private final File rootDir;
     private final File configFile;

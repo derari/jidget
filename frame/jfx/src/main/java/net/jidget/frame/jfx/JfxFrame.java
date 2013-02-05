@@ -21,5 +21,25 @@ public class JfxFrame implements Frame {
         stage.setHeight(600);
         stage.show();
     }
+
+    @Override
+    public double getX() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double getY() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setLocation(double x, double y) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void close() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

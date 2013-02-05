@@ -12,8 +12,8 @@ import net.jidget.builder.JidgetSchemaResolver;
 import net.jidget.builder.StAXJidgetFactory;
 import org.cthul.log.CLogger;
 import org.cthul.log.CLoggerFactory;
-import org.cthul.xml.schema.FileFinder;
-import org.cthul.xml.schema.SchemaResolver;
+import org.cthul.resolve.FileResolver;
+import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
 
 /**
@@ -22,17 +22,17 @@ import org.xml.sax.SAXException;
  */
 public class JidgetFactory {
     
-    static CLogger log = CLoggerFactory.getClasslogger();
+    static CLogger log = CLoggerFactory.getClassLogger();
 
     private final SaveTrigger save;
     private final BeanManager beanManager;
-    private final SchemaResolver resolver;
+    private final LSResourceResolver resolver;
 
     public JidgetFactory(SaveTrigger save) throws BeanException {
         this.save = save;
         beanManager = new BeanManager();
         loadPlugins();
-        resolver = new JidgetSchemaResolver(new FileFinder());
+        resolver = new JidgetSchemaResolver(new FileResolver());
     }
 
     private void loadPlugins() {

@@ -33,13 +33,13 @@
             <groupId>org.cthul</groupId>
             <artifactId>cthul-strings</artifactId>
             <version>1.0</version>
-        </dependency>
+        </dependency><!--
         <dependency>
             <groupId>org.cthul</groupId>
             <artifactId>cthul-parser</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
+        --><dependency>
             <groupId>org.hyperic</groupId>
             <artifactId>sigar-dist</artifactId>
             <version>1.6.5.132</version>
@@ -51,8 +51,13 @@
             <version>1.6.5.132</version>
         </dependency>
         <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.cthul</groupId>
-            <artifactId>cthul-matcher</artifactId>
+            <artifactId>cthul-matchers</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

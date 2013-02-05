@@ -1,6 +1,8 @@
 package net.jidget.beans;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -33,9 +35,10 @@ public class History<T> implements BeanWithUtils {
         this.length = length;
         this.interval = interval.getMilliseconds();
         
-        List<XYChart.Data<Double, T>> list = new RingList<>(length);
-        data = FXCollections.observableArrayList(list);
-        dataProp = new SimpleListProperty<>(data);
+        List<XYChart.Data<Double, T>> list = new LinkedList<>();// new RingList<>(length);
+        data = FXCollections.observableList(list);
+        
+        dataProp = new SimpleListProperty<>(this, "history", data);
     }
     
     /**
@@ -50,7 +53,8 @@ public class History<T> implements BeanWithUtils {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if (data.size() == length) data.remove(0);
+                if (data.size() == length) 
+                    data.remove(0);
                 data.add(new XYChart.Data<>(0.0, v));
                 final int size = data.size();
                 for (int i = 0; i < size; i++) {
