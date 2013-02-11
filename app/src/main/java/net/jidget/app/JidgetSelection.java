@@ -196,6 +196,8 @@ public class JidgetSelection extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void Show(final JidgetManager jManager) {
+        
+        if (selectionDlg == null) {
         /*
          * Set the Nimbus look and feel
          */
@@ -218,7 +220,8 @@ public class JidgetSelection extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(JidgetSelection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        }
+        
         /*
          * Create and display the form
          */

@@ -97,7 +97,6 @@ public class DateBean implements BeanWithUtils {
 
         @Override
         protected int computeValue() {
-            System.out.println("Updated " + field + " to " + date.getValue().get(field));
             return date.getValue().get(field);
         }
         

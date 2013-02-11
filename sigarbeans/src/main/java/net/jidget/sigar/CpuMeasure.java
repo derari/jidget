@@ -1,6 +1,7 @@
 package net.jidget.sigar;
 
 import javafx.beans.property.*;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart.Data;
 import net.jidget.beans.BeanUtils;
 import net.jidget.beans.BeanWithUtils;
@@ -87,5 +88,4 @@ public class CpuMeasure implements BeanWithUtils {
         }
         return h.dataProperty();
     }
-    
 }

@@ -5,6 +5,7 @@ import java.util.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
+import net.jidget.Launch.JidgetRmiServer;
 import net.jidget.app.JidgetManager;
 import net.jidget.app.JidgetSelection;
 import net.jidget.beans.impl.BeanUtilsImpl;
@@ -16,8 +17,7 @@ public class App extends Application {
     //static NativeWidget w;
     
     public static void main(String[] args) throws Exception {
-        if (args.length == 0) args = new String[]{"./src/test/example"};
-        
+            
         ClassLoader loader = App.class.getClassLoader();
         System.out.println(loader.getResource("org/cthul/log/CLoggerFactory.class"));
         
@@ -27,6 +27,7 @@ public class App extends Application {
         log.info("End");
     }
     
+    private JidgetManager jm;
     private File root, config;
     private Jidget j;
 
@@ -36,11 +37,12 @@ public class App extends Application {
     @Override
     public void init() throws Exception {
         List<String> args = new ArrayList<>(getParameters().getRaw());
-        if (args.isEmpty()) args.add("./src/test/example");
+        if (args.isEmpty()) args.add("./jidgets");
         
         root = new File(args.get(0));
         config = args.size() > 1 ? new File(args.get(1)) : new File(root, "config.dat");
-
+        
+        Launch.startRMIServer(this, args.toArray(new String[0]));
     }
     
     @Override
@@ -54,8 +56,9 @@ public class App extends Application {
         
         //stage.setVisible(true);
         //w = (NativeWidget)
-        JidgetManager jm = new JidgetManager(root, config);
+        jm = new JidgetManager(root, config);
         JidgetSelection.Show(jm);
+        
 //        
 //        
 //        Circle c = new Circle(50);
@@ -76,6 +79,11 @@ public class App extends Application {
         j.close();
         final CLogger log = CLoggerFactory.getClassLogger();
         log.warn("stopped");
+        System.exit(0);
+    }
+
+    public void perform(String[] args) {
+        JidgetSelection.Show(jm);
     }
 
 }

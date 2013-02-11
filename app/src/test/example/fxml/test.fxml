@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.* ?>
+<Label text="FXML Test" 
+         style="-fx-font: NORMAL 20 Tahoma;"/>

@@ -2,6 +2,7 @@ package net.jidget.beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -80,11 +81,12 @@ public class RegexBean {
 //            }
 //        });
 //        return p;
+        final StringProperty lastResult = lastIntermediateResult;
         return new StringBinding() {
-            {bind(lastIntermediateResult);}
+            {bind(lastResult);}
             @Override
             protected String computeValue() {
-                String string = lastIntermediateResult.get();
+                String string = lastResult.get();
                 for (Step step: currentSteps) {
                     string = step.apply(string);
                 }
@@ -125,6 +127,12 @@ public class RegexBean {
         
         public String pattern;
         public String replacement;
+        private Pattern rx = null;
+        
+        protected Pattern pattern() {
+            if (rx == null) rx = Pattern.compile(pattern);
+            return rx;
+        }
 
         @Parameters({"first", "with"})
         public static ReplaceStep First(String pattern, String replacement) {
@@ -151,7 +159,7 @@ public class RegexBean {
         
         @Override
         public String apply(String input) {
-            return input.replaceFirst(pattern, replacement);
+            return pattern().matcher(input).replaceFirst(replacement);
         }
         
     }
@@ -169,7 +177,7 @@ public class RegexBean {
         
         @Override
         public String apply(String input) {
-            return input.replaceFirst(pattern, replacement);
+            return pattern().matcher(input).replaceAll(replacement);
         }
         
     }

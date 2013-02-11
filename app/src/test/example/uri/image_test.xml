@@ -5,7 +5,7 @@
         <version>1.0</version>
         <author>Author</author>
         <beans>
-            <j:loader uri="E:\Bilder\Ella\2012-05/CIMG4043.jpg" update="1000"/>
+            <j:loader uri="sun.png" update="1000"/>
         </beans>
     </head>
     <body>

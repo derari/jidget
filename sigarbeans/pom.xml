@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>net.jidget</groupId>
-            <artifactId>jidget-fxbeans</artifactId>
+            <artifactId>jidget-api</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

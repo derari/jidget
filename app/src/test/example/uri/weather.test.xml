@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <properties>
+            <j:properties ref="..*/weather-user.properties"/>
+            <weather.uri>../../example-data/weather-data.xml</weather.uri>
+            <icon.replace.all><![CDATA[ (<icon>\s*([^<]+)) ]]></icon.replace.all>
+            <icon.replace.with>$$1.png</icon.replace.with>
+        </properties>
+        <beans>
+            <j:loader j:id="data" uri="$weather.uri" update="30m"/>
+            <j:regex>
+                <string j:bind="data.string"/>
+                <replace all="[\n\r]+" with=""/>
+                <replace all="$icon.replace.all" with="$icon.replace.with"/>
+                <match j:id="tempToday">
+                    <pattern><![CDATA[ <today>.*?<temp>\s*([^<\s]+) ]]></pattern>
+                </match>
+                <match j:id="skyToday">
+                    <pattern><![CDATA[ <today>.*?<icon>\s*([^<\s]+) ]]></pattern>
+                </match>
+                <match j:id="tempDay1">
+                    <pattern><![CDATA[ <day1>.*?<temp>\s*([^<\s]+) ]]></pattern>
+                </match>
+                <match j:id="skyDay1">
+                    <pattern><![CDATA[ <day1>.*?<icon>\s*([^<\s]+) ]]></pattern>
+                </match>
+                <match j:id="tempDay2">
+                    <pattern><![CDATA[ <day2>.*?<temp>\s*([^<\s]+) ]]></pattern>
+                </match>
+                <match j:id="skyDay2">
+                    <pattern><![CDATA[ <day2>.*?<icon>\s*([^<\s]+) ]]></pattern>
+                </match>
+            </j:regex>
+            <j:loader j:id="iconToday">
+                <uri j:bind="skyToday.group1"/>
+            </j:loader>
+            <j:loader j:id="iconDay1">
+                <uri j:bind="skyDay1.group1"/>
+            </j:loader>
+            <j:loader j:id="iconDay2">
+                <uri j:bind="skyDay2.group1"/>
+            </j:loader>
+        </beans>
+    </head>
+    <body>
+        <j:hBox minHeight="200" minWidth="180">
+            <j:vBox minHeight="200" minWidth="60">
+                <j:imageView>
+                    <image j:bind="iconToday.image"/>
+                    <fitWidth>60</fitWidth>
+                    <smooth>true</smooth>
+                    <preserveRatio>true</preserveRatio>
+                </j:imageView>
+                <j:text>
+                    <font family="Arial" weight="bold" size="20"/>
+                    <text j:bind="tempToday.group1"/>
+                    <fill value="f00"/>
+                </j:text>
+            </j:vBox>
+            <j:vBox minHeight="200" minWidth="60">
+                <j:imageView>
+                    <image j:bind="iconDay1.image"/>
+                    <fitWidth>60</fitWidth>
+                    <smooth>true</smooth>
+                    <preserveRatio>true</preserveRatio>
+                </j:imageView>
+                <j:text>
+                    <font family="Arial" weight="bold" size="20"/>
+                    <text j:bind="tempDay1.group1"/>
+                    <fill value="f00"/>
+                </j:text>
+            </j:vBox>
+            <j:vBox minHeight="200" minWidth="60">
+                <j:imageView>
+                    <image j:bind="iconDay2.image"/>
+                    <fitWidth>60</fitWidth>
+                    <smooth>true</smooth>
+                    <preserveRatio>true</preserveRatio>
+                </j:imageView>
+                <j:text>
+                    <font family="Arial" weight="bold" size="20"/>
+                    <text j:bind="tempDay2.group1"/>
+                    <fill value="f00"/>
+                </j:text>
+            </j:vBox>
+        </j:hBox>
+    </body>
+</j:jidget>

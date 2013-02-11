@@ -16,8 +16,6 @@ public class EvalBeanTest {
     public EvalBeanTest() {
     }
     
-    private EvalBean instance;
-
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -28,7 +26,6 @@ public class EvalBeanTest {
     
     @Before
     public void setUp() {
-        instance = new EvalBean();
     }
     
     @After
@@ -37,7 +34,7 @@ public class EvalBeanTest {
 
     @Test
     public void test_double_literal() {
-        instance.createVar("lit", EvalVar.f("-.5E2"));
+        
     }
     
 }

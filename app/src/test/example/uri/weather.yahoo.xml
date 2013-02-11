@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jidget xmlns:j='http://jidget.net/0.1/jidget'>
+    <head>
+        <name>Name</name>
+        <version>1.0</version>
+        <author>Author</author>
+        <properties>
+            <j:properties ref="..*/weather-user.properties"/>
+            <weather.uri>
+                <![CDATA[ http://weather.yahooapis.com/forecastrss?p=$weather.yahoo.code&u=$weather.yahoo.unit ]]>
+            </weather.uri>
+            <weather.pattern>
+                <![CDATA[ (?siU)<link.*>(.*?)</link>.*city=\"(.*?)\".*sunrise=\"(.*?)\".*sunset=\"(.*?)\".*<image>.*<url>(.*?)</url>.*<title>.*:.*m .*(.*?)</title>.*lat>(.*?)<.*long>(.*?)<.*yweather:condition.*text=\"(.*?)\".*code=\"(.*?)\".*temp=\"(.*?)\".*yweather:forecast.*day=\"(.*?)\".*high=\"(.*?)\".*code=\"(.*?)\".*yweather:forecast.*day=\"(.*?)\".*high=\"(.*?)\".*code=\"(.*?)\".* ]]>
+            </weather.pattern>
+            <current.temp>group11</current.temp>
+            <current.icon>group10</current.icon>
+            <today.temp>group13</today.temp>
+            <today.icon>group14</today.icon>
+            <day1.temp>group16</day1.temp>
+            <day1.icon>group17</day1.icon>
+        </properties>
+        <beans>
+            <j:loader j:id="rssdata" uri="$weather.uri" update="30m"/>
+            <j:regex>
+                <string j:bind="rssdata.string"/>
+                <replace all="[\n\r]+" with=""/>
+                <replace all='code="(29|30|31|32|34|36)"' with='code="sun.png"'/>
+                <replace all='code="(26|27|28|44)"' with='code="clouds.png"'/>
+                <replace all='code="(\d+)"' with='code="rain.png"'/>
+                <match j:id="weather" pattern="$weather.pattern" />
+            </j:regex>
+            <j:loader j:id="iconCurrent">
+                <uri j:bind="weather.$current.icon"/>
+            </j:loader>
+            <j:loader j:id="iconToday">
+                <uri j:bind="weather.$today.icon"/>
+            </j:loader>
+            <j:loader j:id="iconDay1">
+                <uri j:bind="weather.$day1.icon"/>
+            </j:loader>
+        </beans>
+    </head>
+    <body>
+        <j:hBox minHeight="200" minWidth="180">
+            <j:vBox minHeight="200" minWidth="60">
+                <j:imageView>
+                    <image j:bind="iconCurrent.image"/>
+                    <fitWidth>60</fitWidth>
+                    <smooth>true</smooth>
+                    <preserveRatio>true</preserveRatio>
+                </j:imageView>
+                <j:text>
+                    <font family="Arial" weight="bold" size="20"/>
+                    <text j:bind="weather.$current.temp"/>
+                    <fill value="f00"/>
+                </j:text>
+            </j:vBox>
+            <j:vBox minHeight="200" minWidth="60">
+                <j:imageView>
+                    <image j:bind="iconToday.image"/>
+                    <fitWidth>60</fitWidth>
+                    <smooth>true</smooth>
+                    <preserveRatio>true</preserveRatio>
+                </j:imageView>
+                <j:text>
+                    <font family="Arial" weight="bold" size="20"/>
+                    <text j:bind="weather.$today.temp"/>
+                    <fill value="f00"/>
+                </j:text>
+            </j:vBox>
+            <j:vBox minHeight="200" minWidth="60">
+                <j:imageView>
+                    <image j:bind="iconDay1.image"/>
+                    <fitWidth>60</fitWidth>
+                    <smooth>true</smooth>
+                    <preserveRatio>true</preserveRatio>
+                </j:imageView>
+                <j:text>
+                    <font family="Arial" weight="bold" size="20"/>
+                    <text j:bind="weather.$day1.temp"/>
+                    <fill value="f00"/>
+                </j:text>
+            </j:vBox>
+        </j:hBox>
+    </body>
+</j:jidget>

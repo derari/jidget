@@ -10,6 +10,7 @@ import javafx.beans.property.*;
 import net.jidget.beans.type.Parameters;
 import net.jidget.utils.Interval;
 import net.jidget.utils.UpdateSignal;
+import org.cthul.log.CLoggerFactory;
 
 /**
  *
@@ -105,15 +106,15 @@ public class UriLoader implements BeanWithUtils {
         try {
             if (lastIs != null) lastIs.close();
         } catch (IOException | RuntimeException e) {}
+        if (beanUtils == null) return null;
+        String uriStr = uri.get();
         try {
-            if (beanUtils == null) return null;
-            String uriStr = uri.get();
             if (uriStr == null) return null;
             URI resolvedUri = beanUtils.resolve(uriStr);
             lastIs = resolvedUri.toURL().openStream();
             return lastIs;
         } catch (IOException | RuntimeException e) {
-            e.printStackTrace();
+            CLoggerFactory.getClassLogger().warn("Could not load %s: %s", uriStr, e.getMessage());
             return null;
         }
     }

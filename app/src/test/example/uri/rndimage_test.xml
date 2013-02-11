@@ -6,9 +6,9 @@
         <author>Author</author>
         <beans>
             <j:files update="10m">
-                <folder path="E:\Bilder\Ella\2012-05" pattern=".*jpg"/>
+                <folder path="./" pattern=".*png"/>
             </j:files>
-            <j:random update="1s">
+            <j:random update="3s">
                 <input j:bind="files.list"/>
             </j:random>            
             <j:loader>

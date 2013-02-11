@@ -7,11 +7,11 @@ import javax.xml.stream.XMLStreamReader;
  *
  * @author Arian Treffer
  */
-public class AbstractBuilder {
+public class AbstractStAXBuilder {
     
     protected final XMLStreamReader reader;
 
-    public AbstractBuilder(XMLStreamReader reader) {
+    public AbstractStAXBuilder(XMLStreamReader reader) {
         this.reader = reader;
     }
     

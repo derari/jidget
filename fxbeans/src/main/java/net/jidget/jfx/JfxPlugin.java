@@ -48,7 +48,6 @@ public class JfxPlugin extends Plugin {
                 tag(NS_JIDGET_0_1, "lineChart");
                 property("data").listOf(XYChart.Series.class).setter("data");
                 defaultProperty("data");
-                LineChartBuilder b = null;
             }},
             new ListBeanType(XYChart.Series.class){{
                 factory(FXCollections.class, "observableArrayList");

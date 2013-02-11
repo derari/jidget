@@ -10,6 +10,9 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import net.jidget.beans.BeanUtils;
+import net.jidget.beans.BeanWithUtils;
 import net.jidget.beans.type.Parameters;
 import net.jidget.utils.Interval;
 
@@ -73,6 +76,10 @@ public class History<T> implements BeanWithUtils {
     public ObjectProperty<T> valueProperty() {
         return value;
     }
+
+//    public ObservableList<Data<Double, T>> dataProperty() {
+//        return data;
+//    }
 
     public synchronized ListProperty<XYChart.Data<Double, T>> dataProperty() {
         return dataProp;

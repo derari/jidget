@@ -8,6 +8,7 @@ import net.jidget.Jidget;
 import net.jidget.Plugin;
 import net.jidget.beans.BeanException;
 import net.jidget.beans.BeanManager;
+import net.jidget.builder.FXMLJidgetFactory;
 import net.jidget.builder.JidgetSchemaResolver;
 import net.jidget.builder.StAXJidgetFactory;
 import org.cthul.log.CLogger;
@@ -58,6 +59,9 @@ public class JidgetFactory {
     }
     
     public Jidget create(File rootDir, String id, File file) throws IOException, SAXException, XMLStreamException, BeanException {
+        if (file.getPath().endsWith(".fxml")) {
+            return new FXMLJidgetFactory(rootDir.toURI(), id, file, beanManager, save).build();
+        }
         StAXJidgetFactory factory = new StAXJidgetFactory(rootDir.toURI(), id, beanManager, save, file, resolver);
         return factory.build();
     }

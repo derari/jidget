@@ -115,7 +115,7 @@ public class JidgetManager {
         for (File f: dir.listFiles()) {
             if (f.isDirectory()) {
                 collectJidgetXmls(root, f, result);
-            } else if (f.getName().endsWith(".xml")) {
+            } else if (f.getName().endsWith("xml")) {
                 Path p = root.relativize(f.toPath().normalize());
                 result.add(p.toString());
             }

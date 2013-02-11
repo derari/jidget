@@ -19,7 +19,7 @@
                     <j:numberAxis lowerBound="0" upperBound="1" autoRanging="false"/>
                 </YAxis>
                 <series>
-                    <data j:bind="cpu.data"/>
+                    <data j:set="cpu.data"/>
                 </series>
             </j:lineChart>
         </j:vBox>

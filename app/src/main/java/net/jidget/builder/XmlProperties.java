@@ -1,10 +1,10 @@
 package net.jidget.builder;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map.Entry;
+import java.util.*;
+import org.cthul.log.CLogger;
+import org.cthul.log.CLoggerFactory;
 
 /**
  *
@@ -12,10 +12,25 @@ import java.util.regex.Pattern;
  */
 public class XmlProperties {
     
+    private final CLogger log = CLoggerFactory.getClassLogger();
     private final Map<String, String> map = new HashMap<>();
 
     public void put(String key, String value) {
         map.put(key, value);
+    }
+    
+    private final Set<String> lock = new HashSet<>();
+    
+    public synchronized String get(String key) {
+        if (!lock.add(key)) {
+            log.error("recursion: %s", key);
+            return "{recursion:" + key + "}";
+        }
+        try {
+            return apply(map.get(key));
+        } finally {
+            lock.remove(key);
+        }
     }
     
     public void load(String prefix, File f) {
@@ -23,51 +38,96 @@ public class XmlProperties {
             if (f.getName().endsWith(".properties")) {
                 loadProperties(prefix, f);
             } else {
-                throw new IllegalArgumentException("Unexpected extension: " + f);
+                log.error("Unexpected extension: %s", f);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
     
     public void loadProperties(String prefix, File f) throws IOException {
+        Properties tmp = new Properties();
+        tmp.load(new FileReader(f));
         BufferedReader br = new BufferedReader(new FileReader(f));
-        String line;
-        while ((line = br.readLine()) != null) {
-            int iEq = line.indexOf('=');
-            if (iEq > 0) {
-                String key = line.substring(0, iEq).trim();
-                if (!key.startsWith("#")) {
-                    String value = line.substring(iEq+1);
-                    put(prefix + key, value);
-                }
-            }
+        for (Entry<Object, Object> e: tmp.entrySet()) {
+            String key = (String) e.getKey();
+            String value = (String) e.getValue();
+            put(prefix + key, value);
         }
     }
     
-    private static Pattern propPattern = Pattern.compile("\\$(\\$|[-\\w\\d.]+|\\{[-\\w\\d.]+\\})");
-
     public String apply(String text) {
         if (text == null) return null;
-        if (!text.contains("$")) return text;
-        StringBuffer sb = new StringBuffer();
-        Matcher m = propPattern.matcher(text);
-        while (m.find()) {
-            String key = m.group(1);
-            if (key.startsWith(("{"))) {
-                key = key.substring(1, key.length()-1);
-            }
-            final String value;
-            if (key.equals(("$"))) {
-                value = "$";
-            } else {
-                String pValue = map.get(key);
-                value = pValue == null ? "" : pValue;
-            }
-            m.appendReplacement(sb, value);
+        final int len = text.length();
+        int i = 0;
+        for (; i < len; i++) {
+            char c = text.charAt(i);
+            if (c == '$') break;
         }
-        m.appendTail(sb);
+        if (i == len) return text;
+        StringBuilder sb = new StringBuilder();
+        int last = 0;
+        for (; i < len; i++) {
+            char c = text.charAt(i);
+            if (c == '$' && i+1 < len) {
+                sb.append(text, last, i);
+                c = text.charAt(i+1);
+                if (c == '$') {
+                    sb.append('$');
+                    i++;
+                } else if (c == '{') {
+                    int start = i+2;
+                    i = scanComplexKey(text, start);
+                    String key = getComplexKey(text, start, i);
+                    sb.append(get(key));
+                } else {
+                    String key = parseSimpleKey(text, i+1);
+                    sb.append(get(key));
+                    i += key.length();
+                }
+                last = i+1;
+            }
+        }
+        sb.append(text, last, len);
         return sb.toString();
+    }
+
+    private String parseSimpleKey(String text, int i) {
+        final int len = text.length();
+        final int start = i;
+        while (i < len) {
+            char c = text.charAt(i);
+            boolean valid = c == '.' || ('a' <= c && c <= 'z') ||
+                            c == '_' || ('A' <= c && c <= 'Z') ||
+                            ('0' <= c && c <= '9');
+            if (!valid) {
+                break;
+            }
+            i++;
+        }
+        return text.substring(start, i);
+    }
+
+    private int scanComplexKey(String text, int i) {
+        final int len = text.length();
+        final int start = i;
+        int nested = 0;
+        for (; i < len; i++) {
+            char c = text.charAt(i);
+            if (c == '{') {
+                nested++;
+            } else if (c == '}') {
+                nested--;
+                if (nested < 0) {
+                    break;
+                }
+            }
+        }
+        return i;
+    }
+    
+    private String getComplexKey(String text, int start, int end) {
+        return apply(text.substring(start, end));
     }
     
 }

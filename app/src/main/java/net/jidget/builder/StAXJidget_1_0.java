@@ -20,7 +20,7 @@ import static javax.xml.stream.XMLStreamConstants.*;
  *
  * @author Arian Treffer
  */
-class StAXJidget_1_0 extends AbstractBuilder {
+class StAXJidget_1_0 extends AbstractStAXBuilder {
     
     /* Implementation notes:
      * - do not rely on a schema conform document
@@ -124,7 +124,7 @@ class StAXJidget_1_0 extends AbstractBuilder {
                 while (next() == CHARACTERS) {
                     value.append(getCharacters());
                 }
-                properties.put(pName, properties.apply(value.toString()));
+                properties.put(pName, value.toString());
             }
         }
     }
@@ -258,8 +258,15 @@ class StAXJidget_1_0 extends AbstractBuilder {
 
             String bind = reader.getAttributeValue(jidgetNs, "bind");
             if (bind != null && !bind.isEmpty()) {
-                bindings.add(new Bind(propAdapter, owner, ns, tag, index, bind));
+                bind = properties.apply(bind);
+                bindings.add(new Bind(propAdapter, owner, ns, tag, index, bind, false));
             }
+            String set = reader.getAttributeValue(jidgetNs, "set");
+            if (set != null && !set.isEmpty()) {
+                bind = properties.apply(bind);
+                bindings.add(new Bind(propAdapter, owner, ns, tag, index, set, true));
+            }
+            
             item = properties(item, itemAdapter);
             item = itemAdapter.complete(item);
             itemAdapter.setUtils(item, beanUtils);
@@ -312,7 +319,11 @@ class StAXJidget_1_0 extends AbstractBuilder {
     private void applyBindings() throws BeanException {
         for (Bind b: bindings) {
             ObservableValue<?> binding = findProperty(b.binding);
-            b.property.bind(b.owner, b.ns, b.tag, b.index, binding);
+            if (b.setOnlyOnce) {
+                b.property.setItem(b.owner, b.ns, b.tag, b.index, binding.getValue());
+            } else {
+                b.property.bind(b.owner, b.ns, b.tag, b.index, binding);
+            }
         }
     }
     
@@ -409,14 +420,16 @@ class StAXJidget_1_0 extends AbstractBuilder {
         final String tag;
         final int index;
         final String binding;
+        final boolean setOnlyOnce;
 
-        public Bind(PropertyAdapter property, Object owner, String ns, String tag, int index, String binding) {
+        public Bind(PropertyAdapter property, Object owner, String ns, String tag, int index, String binding, boolean setOnlyOnce) {
             this.property = property;
             this.owner = owner;
             this.ns = ns;
             this.tag = tag;
             this.index = index;
             this.binding = binding;
+            this.setOnlyOnce = setOnlyOnce;
         }
 
     }

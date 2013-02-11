@@ -47,7 +47,8 @@
                                 <argument>${project.exec.moreoptions2}</argument>
                                 <argument>-cp</argument>
                                 <classpath/>
-                                <argument>com.javafx.main.Main</argument>
+                                <argument>net.jidget.Launch</argument>
+                                <argument>./src/test/example</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -60,7 +61,7 @@
                     <archive>
                         <!-- Start net.jidget.App as javafx application -->
                         <manifest>
-                            <mainClass>com.javafx.main.Main</mainClass>
+                            <mainClass>net.jidget.Launch</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>bin/</classpathPrefix>
                         </manifest>

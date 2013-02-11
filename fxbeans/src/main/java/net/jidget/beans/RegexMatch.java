@@ -36,6 +36,12 @@ public class RegexMatch {
         setResult(result);
     }
     
+    @Parameters("pattern")
+    public RegexMatch(String pattern) {
+        this();
+        patternProperty().set(pattern);
+    }
+    
     public RegexMatch() {
         pattern.bind(new ObjectBinding<Pattern>() {
             {bind(patternString);}

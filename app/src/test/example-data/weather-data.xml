@@ -1,11 +1,14 @@
 <misc>
     <today>
+        <icon>sun</icon>
         <temp>10</temp>
     </today>
     <day1>
+        <icon>clouds</icon>
         <temp>11</temp>
     </day1>
     <day2>
+        <icon>rain</icon>
         <temp>12</temp>
     </day2>
 </misc>
