@@ -112,7 +112,15 @@ public class JidgetManager {
     }
     
     private static void collectJidgetXmls(Path root, File dir, SortedSet<String> result) {
-        for (File f: dir.listFiles()) {
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File[] files = dir.listFiles();
+        if (files == null) {
+            throw new IllegalArgumentException(
+                    dir + " is not a directory");
+        }
+        for (File f: files) {
             if (f.isDirectory()) {
                 collectJidgetXmls(root, f, result);
             } else if (f.getName().endsWith("xml")) {

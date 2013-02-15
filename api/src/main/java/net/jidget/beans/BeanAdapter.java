@@ -17,7 +17,7 @@ public interface BeanAdapter {
      * @param attributes
      * @return 
      */
-    public Object create(String className, Attributes attributes) throws BeanException;
+    Object create(String className, Attributes attributes) throws BeanException;
 
     /**
      * Creates an object of the given tag and applies the attributes.
@@ -26,7 +26,7 @@ public interface BeanAdapter {
      * @param attributes
      * @return 
      */
-    public Object create(String ns, String tag, Attributes attributes) throws BeanException;
+    Object create(String ns, String tag, Attributes attributes) throws BeanException;
 
     /**
      * Like {@link #create(java.lang.String, org.xml.sax.Attributes)},
@@ -36,7 +36,7 @@ public interface BeanAdapter {
      * @param attributes
      * @return 
      */
-    public Object updateOrCreate(Object bean, String className, Attributes attributes) throws BeanException;
+    Object updateOrCreate(Object bean, String className, Attributes attributes) throws BeanException;
     
     /**
      * Like {@link #create(java.lang.String, java.lang.String, org.xml.sax.Attributes)},
@@ -47,7 +47,7 @@ public interface BeanAdapter {
      * @param attributes
      * @return 
      */
-    public Object updateOrCreate(Object bean, String ns, String tag, Attributes attributes) throws BeanException;
+    Object updateOrCreate(Object bean, String ns, String tag, Attributes attributes) throws BeanException;
 
     /**
      * Returns the property identified by the tag.
@@ -57,7 +57,7 @@ public interface BeanAdapter {
      * @return
      * @throws BeanException 
      */
-    public PropertyAdapter getProperty(Object bean, String ns, String tag) throws BeanException;
+    PropertyAdapter getProperty(Object bean, String ns, String tag) throws BeanException;
 
     /**
      * Returns the property identified by the tag.
@@ -67,7 +67,7 @@ public interface BeanAdapter {
      * @return
      * @throws BeanException 
      */
-    public PropertyAdapter getDefaultProperty(Object bean, String ns, String tag) throws BeanException;    
+    PropertyAdapter getDefaultProperty(Object bean, String ns, String tag) throws BeanException;    
 
     /**
      * Adds character data to an object.
@@ -76,10 +76,12 @@ public interface BeanAdapter {
      * @param text
      * @return the updated object.
      */
-    public Object setText(Object bean, int index, String text) throws BeanException;
+    Object setText(Object bean, int index, String text) throws BeanException;
     
-    public Object complete(Object bean) throws BeanException;
+    Object complete(Object bean) throws BeanException;
     
-    public void setUtils(Object bean, BeanUtils beanUtils);
+    void setUtils(Object bean, BeanUtils beanUtils);
+    
+    String getBeanTypeName();
 
 }

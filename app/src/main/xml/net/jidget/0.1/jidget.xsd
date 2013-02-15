@@ -102,7 +102,7 @@
     </xs:complexType>
     
     <xs:element name="bean" type="j:Bean"/>
-    <xs:element name="node" type="j:Bean"/>
+    <xs:element name="node" type="j:Node"/>
     
     <xs:complexType name="BeanBase">
         <xs:annotation>
@@ -130,25 +130,22 @@
         </xs:complexContent>
     </xs:complexType>
     
-    <xs:element name="bean2" type="j:Bean2"/>
-    
-    <xs:complexType name="Bean2">
+    <xs:complexType name="Node">
         <xs:annotation>
             <xs:documentation>
                 <h2>Bean</h2>
             </xs:documentation>
         </xs:annotation>
-        <xs:sequence minOccurs="0">
-            <xs:any processContents="lax"/>
-        </xs:sequence>
-        <xs:attribute ref="j:id"/>
-        <xs:attribute ref="j:class" use="required"/>
-        
-        <xs:attribute name="baz" type="xs:string" form="unqualified"/>
+        <xs:complexContent>
+            <xs:extension base="j:BeanBase">
+                <xs:sequence>
+                    <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:attribute ref="j:class" use="required"/>
+                <xs:anyAttribute processContents="lax" namespace="##local"/>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
-    
-    <!--<xs:attribute ref="fx:fx-id"/>
-    <xs:attribute name="fx-id" type="xs:string"/>-->
     
     <xs:complexType name="Body">
         <xs:annotation>
@@ -163,130 +160,6 @@
     
     <xs:attribute name="id" type="xs:string"/>
     <xs:attribute name="class" type="xs:string"/>
-
-
-<!--
-    <xs:complexType name="ClassList">
-        <xs:annotation>
-            <xs:documentation>
-                <h2>ClassList</h2>
-            </xs:documentation>
-        </xs:annotation>
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="template" type="pv:EntityTemplate"/>
-            <xs:element name="singular" type="pv:EntitySingular"/>
-            <xs:element name="singleton" type="pv:EntitySingleton"/>
-            <xs:element name="struct" type="pv:Struct"/>
-        </xs:choice>
-    </xs:complexType>
-
-    <xs:complexType name="Struct">
-        <xs:annotation>
-            <xs:documentation>
-                <h2>Struct</h2>
-            </xs:documentation>
-        </xs:annotation>
-        <xs:group ref="pv:StructElements"/>
-    </xs:complexType>
-
-    <xs:group name="StructElements">
-        <xs:sequence>
-            <xs:element name="name" type="xs:string"/>
-            <xs:element name="fields" type="pv:FieldList"/>
-        </xs:sequence>
-    </xs:group>
-
-    <xs:complexType name="EntityDefinition">
-        <xs:annotation>
-            <xs:documentation>
-                <h2>EntityDefinition</h2>
-                Defines the format of an entity that may occur in the game.
-            </xs:documentation>
-        </xs:annotation>
-    </xs:complexType>
-
-    <xs:complexType name="EntityTemplate">
-        <xs:annotation>
-            <xs:documentation>
-                <h2>EntityTemplate</h2>
-                Defines a class of entities.
-                Each definition is a template for an actual entity.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="pv:EntityDefinition">
-                <xs:sequence>
-                    <xs:group ref="pv:StructElements"/>
-                    <xs:element name="entityFields" type="pv:FieldList"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="EntitySingular">
-        <xs:annotation>
-            <xs:documentation>
-                <h2>EntitySingular</h2>
-                Each singular-definition is an entity.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="pv:EntityDefinition">
-                <xs:group ref="pv:StructElements"/>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="EntitySingleton">
-        <xs:annotation>
-            <xs:documentation>
-                <h2>EntitySingleton</h2>
-                There is exactly one instance of this definition.
-                The id of the instance has to be specified.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="pv:EntityDefinition">
-                <xs:sequence>
-                    <xs:element name="id" type="xs:string"/>
-                    <xs:group ref="pv:StructElements"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="FieldList">
-        <xs:annotation>
-            <xs:documentation>
-                <h2>FieldList</h2>
-            </xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="field" type="pv:Field" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="Field">
-        <xs:annotation>
-            <xs:documentation>
-                <h2>Field</h2>
-
-            </xs:documentation>
-        </xs:annotation>
-        <xs:sequence minOccurs="0">
-            <xs:element name="class" type="xs:string"/>
-            <xs:element name="serializer" type="xs:string"/>
-        </xs:sequence>
-        <xs:attribute name="name" type="xs:string" use="required"/>
-        <xs:attribute name="type" type="xs:string" default="custom"/>
-        <xs:attribute name="list" type="xs:boolean" default="false"/>
-        <xs:attribute name="opposite" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="Documentation" mixed="true">
-        <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:any processContents="lax"/>
-        </xs:sequence>
-    </xs:complexType> -->
+    <xs:attribute name="style-class" type="xs:string"/>
 
 </xs:schema>

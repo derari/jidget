@@ -263,8 +263,16 @@ class StAXJidget_1_0 extends AbstractStAXBuilder {
             }
             String set = reader.getAttributeValue(jidgetNs, "set");
             if (set != null && !set.isEmpty()) {
-                bind = properties.apply(bind);
+                set = properties.apply(set);
                 bindings.add(new Bind(propAdapter, owner, ns, tag, index, set, true));
+            }
+            
+            String styleClass = reader.getAttributeValue(jidgetNs, "style-class");
+            if (styleClass != null && !styleClass.isEmpty()) {
+                styleClass = properties.apply(styleClass);
+                item = styleClass(item, itemAdapter, styleClass, false);
+            } else {
+//                item = styleClass(item, itemAdapter, true, tag, itemAdapter.getBeanTypeName());
             }
             
             item = properties(item, itemAdapter);
@@ -273,6 +281,30 @@ class StAXJidget_1_0 extends AbstractStAXBuilder {
             if (id != null) beans.put(id, item);
         }
         return item;
+    }
+    
+    private Object styleClass(Object bean, BeanAdapter adapter, String styleClass, boolean isDefaultValue) throws BeanException {
+        return styleClass(bean, adapter, isDefaultValue, styleClass.split("[\\s,]+"));
+    }
+    
+    private Object styleClass(Object bean, BeanAdapter adapter, boolean isDefaultValue, final String... styleClasses) throws BeanException {
+        final String scNs = "";
+        final String scTag = "styleClass";
+        if (styleClasses.length == 0) return bean;
+        PropertyAdapter styleProperty = adapter.getProperty(bean, scNs, scTag);
+        if (styleProperty == null) {
+            if (isDefaultValue) return bean;
+            throw new BeanException(
+                    "style-class not supported for " + adapter);
+        }
+        for (int i = 0; i < styleClasses.length; i++) {
+            Object styleValue = styleProperty.getItem(bean, scNs, scTag, i);
+            BeanAdapter styleAdapter = styleProperty.getItemAdapter(bean, scNs, scTag, i);
+            String styleName = styleClasses[i].trim().replace('.', '-');
+            styleAdapter.setText(styleValue, i, styleName);
+            bean = styleProperty.setItem(bean, scNs, scTag, i, styleValue);
+        }
+        return bean;
     }
     
     /**

@@ -62,6 +62,11 @@ public class AnyTypeBeanAdapter implements BeanAdapter {
     public void setUtils(Object bean, BeanUtils beanUtils) {
     }
 
+    @Override
+    public String getBeanTypeName() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     public static class Property implements PropertyAdapter {
         
         private final BeanManager beanManager;

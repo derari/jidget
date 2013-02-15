@@ -48,17 +48,20 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 //        this.stage = stage;
-        
-        // dummy jidget to prevent javafx from closing
-        Group g = new Group();
-        j = new Jidget("", "", "", "", new HashMap<String, Object>(), g, 
-                new ArrayList<File>(), new BeanUtilsImpl(null, null, 1), null);
-        
-        //stage.setVisible(true);
-        //w = (NativeWidget)
-        jm = new JidgetManager(root, config);
-        JidgetSelection.Show(jm);
-        
+        try {
+            // dummy jidget to prevent javafx from closing
+            Group g = new Group();
+            j = new Jidget("", "", "", "", new HashMap<String, Object>(), g, 
+                    new ArrayList<File>(), new BeanUtilsImpl(null, null, 1), null);
+
+            //stage.setVisible(true);
+            //w = (NativeWidget)
+            jm = new JidgetManager(root, config);
+            JidgetSelection.Show(jm);
+        } catch (Exception e) {
+            CLoggerFactory.getClassLogger().error(e);
+            throw e;
+        }
 //        
 //        
 //        Circle c = new Circle(50);

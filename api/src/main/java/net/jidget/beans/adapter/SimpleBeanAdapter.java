@@ -96,6 +96,11 @@ public class SimpleBeanAdapter implements BeanAdapter {
     }
 
     @Override
+    public String getBeanTypeName() {
+        return name;
+    }
+
+    @Override
     public String toString() {
         return getClass().getSimpleName() + " " +
                 name + "(" + 

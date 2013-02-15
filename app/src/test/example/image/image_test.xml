@@ -5,7 +5,7 @@
         <version>1.0</version>
         <author>Author</author>
         <beans>
-            <j:image uri="E:\Bilder\Ella\2012-05/CIMG4043.jpg" j:id="image"/>
+            <j:image uri="./src/test/example/uri/sun.png"/>
         </beans>
     </head>
     <body>

@@ -209,23 +209,23 @@ public class SimpleBeanType {
         return b;
     }
     
-    public PropertyDataBuilder Property(Class clazz, String name) {
+    public static PropertyDataBuilder Property(Class clazz, String name) {
         return new PropertyDataBuilder(clazz, name);
     }
     
-    public PropertyDataBuilder GenericProperty(Class clazz) {
+    public PropertyDataBuilder property(String name) {
+        PropertyDataBuilder p = Property(implClass(), name);
+        add(p);
+        return p;
+    }
+    
+    public static PropertyDataBuilder GenericProperty(Class clazz) {
         return Property(clazz, null);
     }
     
     public PropertyDataBuilder genericProperty() {
         PropertyDataBuilder p = GenericProperty(implClass());
         defaultProperty(p.def);
-        return p;
-    }
-    
-    public PropertyDataBuilder property(String name) {
-        PropertyDataBuilder p = Property(implClass(), name);
-        add(p);
         return p;
     }
     
@@ -250,7 +250,7 @@ public class SimpleBeanType {
     }
     
     protected String adapterName() {
-        return type.getType().getSimpleName();
+        return type.getType().getName();
     }
 
     protected BeanAdapter createAdapter(BeanManager bm, BeanFactory bf, Map<String, PropertyAdapter> pAdapters, PropertyAdapter defaultPA) {

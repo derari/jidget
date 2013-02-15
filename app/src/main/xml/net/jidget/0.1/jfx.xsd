@@ -9,6 +9,8 @@
         attributeFormDefault="unqualified"
         >
     
+    <!-- only a test -->
+    
     <xs:import namespace="http://jidget.net/0.1/jidget" schemaLocation="jidget.xsd"/>
     
     <xs:attribute name="fx-id" type="xs:string"/>

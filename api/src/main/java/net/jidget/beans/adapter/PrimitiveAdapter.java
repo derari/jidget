@@ -10,12 +10,15 @@ import org.xml.sax.Attributes;
  */
 public class PrimitiveAdapter implements BeanAdapter {
 
+    private final String beanTypeName;
     private final Object defaultValue;
     private final ValueParser parser;
 
     public PrimitiveAdapter(Class<?> clazz, Object defaultValue) {
         this.parser = ValueParser.get(clazz);
         this.defaultValue = defaultValue;
+        this.beanTypeName = (defaultValue == null) ? Void.class.getName() :
+                defaultValue.getClass().getName();
     }
     
     @Override
@@ -42,12 +45,14 @@ public class PrimitiveAdapter implements BeanAdapter {
 
     @Override
     public PropertyAdapter getProperty(Object bean, String ns, String tag) throws BeanException {
-        throw new BeanException("Primitive has no properties");
+        return null;
+//        throw new BeanException("Primitive has no properties");
     }
 
     @Override
     public PropertyAdapter getDefaultProperty(Object bean, String ns, String tag) throws BeanException {
-        throw new BeanException("Primitive has no properties");
+        return null;
+//        throw new BeanException("Primitive has no properties");
     }
 
     @Override
@@ -62,6 +67,11 @@ public class PrimitiveAdapter implements BeanAdapter {
 
     @Override
     public void setUtils(Object bean, BeanUtils beanUtils) {
+    }
+
+    @Override
+    public String getBeanTypeName() {
+        return beanTypeName;
     }
     
 }

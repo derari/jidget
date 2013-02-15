@@ -10,9 +10,12 @@
     </head>
     <body>
         <j:vBox minHeight="500">
-            <j:text id="txt">
+            <j:label>
                 <text>Hello Style</text>
-            </j:text>
+            </j:label>
+            <j:label id="txt" j:style-class="text2">
+                <text>Whats up?</text>
+            </j:label>
         </j:vBox>
     </body>
 </j:jidget>

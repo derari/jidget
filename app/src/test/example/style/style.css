@@ -1,9 +1,15 @@
 .text { 
     -fx-font-size: 20pt;
-    -fx-font-smoothing-type: lcd; 
+}
+
+.text2 { 
+    -fx-font-weight: bold;
+}
+
+#txt {
+    -fx-font-style: italic;
 } 
 
 .root {
-    -fx-text-fill: white;
-    -fx-font-family: "Arial";
+    -fx-font-family: "serif";
 }
