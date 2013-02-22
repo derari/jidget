@@ -41,7 +41,7 @@
                                 <argument>-Djava.library.path=target/bin;target/bin/hyperic-sigar-1.6.5/sigar-bin/lib</argument>
                                 <!--<argument>-Djavafx.verbose=true</argument>-->
                                 <!--<argument>-verbose:class</argument>-->
-                                <argument>-Djavafx.runtime.path=${java.home}</argument>
+                                <!--<argument>-Djavafx.runtime.path=${java.home}</argument>-->
                                 <argument>-Djavafx.application.class=net.jidget.App</argument>
                                 <argument>${project.exec.moreoptions1}</argument>
                                 <argument>${project.exec.moreoptions2}</argument>
@@ -88,7 +88,7 @@
                             <overWriteReleases>false</overWriteReleases> 
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
-                            <excludeGroupIds>javafx</excludeGroupIds>
+                            <includeScope>runtime</includeScope>
                             <excludeArtifactIds>sigar-dist</excludeArtifactIds>
                         </configuration>
                     </execution>

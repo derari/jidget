@@ -13,6 +13,9 @@ public class Launch {
     public static final int PORT = 3997;
     
     public static void main(String[] args) throws Exception {
+        if (System.getProperty("javafx.runtime.path") == null) {
+            System.getProperties().setProperty("javafx.runtime.path", System.getProperty("java.home"));
+        }
         if (!sendToRemote(args)) {
             startApplication(args);
         }
@@ -26,6 +29,7 @@ public class Launch {
     }
     
     protected static void startApplication(String[] args) throws Exception {
+        // this will load javafx and then launch net.jidget.App
         Class jfxMain = Class.forName("com.javafx.main.Main");
         Method main = jfxMain.getMethod("main", String[].class);
         main.invoke(null, (Object) args);
