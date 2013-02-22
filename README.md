@@ -6,7 +6,8 @@ Jidget is a JavaFX 2 Desktop Widget System
 
 Status: Prototype
 
-[Download](http://turtlecat.de/jidget/jidget-snapshot.zip)
+[Download](http://turtlecat.de/jidget/jidget-snapshot.zip)  
+[Help/Questions/Discussions](https://groups.google.com/forum/?fromgroups#!forum/jidget)
 
 Features
 --------
