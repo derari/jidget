@@ -6,10 +6,12 @@ Jidget is a JavaFX 2 Desktop Widget System
 
 Status: Prototype
 
+[Download](http://turtlecat.de/jidget/jidget-snapshot.zip)
+
 Features
 --------
 
-  * Define widgets with FXML or Jidget XML
+  * Define JavaFX widgets (Jidgets) with FXML or Jidget XML
     * A Jidget is a single file
     * Drop them in a folder and they can be loaded
 	* Easy to share 
@@ -17,19 +19,19 @@ Features
     * Load URLs, images
 	* Calculations, Format output
 	* Measure CPU usage (more will follow)
-	* Add your own beans with plug-ins
+	* Add your own beans via plug-ins
   * JavaFX nodes to show data
     * JavaFX 2 controls (not all yet, the rest will follow soon)
-    * Add your own components with plug-ins
+    * Add your own components via plug-ins
   * CSS to customize the looks
   * Properties to configure personal settings
   
 Getting started
 ---------------
 
-  * Download and extract to a folder of your choice
-  * Run `start.bat`
-    * If you are on Mac/Linux, you will figure it out ;-)
+  * [Download](http://turtlecat.de/jidget/jidget-snapshot.zip) and extract to a folder of your choice
+  * Just run the jar (e.g., `java -jar jidget-app-0.1-SNAPSHOT.jar`)
+    * Make sure you have the latest jdk (1.7_13)
   * Activate some Jidgets and drag them over the screen
   * I said it's just a prototype
   
@@ -55,6 +57,6 @@ Why Jidget XML?
 	  * Is very verbose
   * Jidget XML
     * Easy to read
-	  * Thus quicker to adapt someone else's Jidget to better suit your needs
+	  * Thus easier to adapt someone else's Jidget to better suit your needs
 	* Easier to write
-	  * I don't trust tools for fine-grained to do 
+	  * I don't trust tools for fine-grained layouting
